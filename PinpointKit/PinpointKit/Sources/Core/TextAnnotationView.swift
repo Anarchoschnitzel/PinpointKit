@@ -69,7 +69,7 @@ open class TextAnnotationView: AnnotationView, UITextViewDelegate {
     override open func tintColorDidChange() {
         textView.typingAttributes = {
             var attributes = self.textView.typingAttributes
-            attributes[NSAttributedStringKey.foregroundColor.rawValue] = self.tintColor
+            attributes[NSAttributedString.Key.foregroundColor] = self.tintColor
             return attributes
         }()
     }
@@ -91,9 +91,9 @@ open class TextAnnotationView: AnnotationView, UITextViewDelegate {
     // MARK: - TextAnnotationView
     
     /// The attributes of the text to use for an `NSAttributedString`.
-    var textAttributes: [String: AnyObject] = [:] {
+    var textAttributes: [NSAttributedString.Key: AnyObject] = [:] {
         didSet {
-            textAttributes[NSAttributedStringKey.font.rawValue] = font
+            textAttributes[NSAttributedString.Key.font] = font
             textView.typingAttributes = textAttributes
         }
     }
@@ -106,7 +106,7 @@ open class TextAnnotationView: AnnotationView, UITextViewDelegate {
     var minimumTextSize: CGSize {
         let width: CGFloat = 40.0
         let character = "." as NSString
-        let textFont = textAttributes[NSAttributedStringKey.font.rawValue] ?? font
+        let textFont = textAttributes[NSAttributedString.Key.font] ?? font
         
         let size = character.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [.font: textFont], context: nil)
         return CGSize(width: width, height: size.height + TextAnnotationView.TextViewInset.top + TextAnnotationView.TextViewInset.bottom + TextAnnotationView.TextViewLineFragmentPadding)

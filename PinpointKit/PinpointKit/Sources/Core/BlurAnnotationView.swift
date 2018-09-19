@@ -53,7 +53,7 @@ open class BlurAnnotationView: AnnotationView, GLKViewDelegate {
         let maximumWidth = max(4.0, min(size.width, size.height) * 0.075)
         let outsideStrokeWidth = min(maximumWidth, 14.0) * 1.5
         
-        return UIEdgeInsetsInsetRect(annotationFrame, UIEdgeInsets(top: -outsideStrokeWidth, left: -outsideStrokeWidth, bottom: -outsideStrokeWidth, right: -outsideStrokeWidth))
+        return annotationFrame.inset(by: UIEdgeInsets(top: -outsideStrokeWidth, left: -outsideStrokeWidth, bottom: -outsideStrokeWidth, right: -outsideStrokeWidth))
     }
     
     // MARK: - Initializers
@@ -69,7 +69,7 @@ open class BlurAnnotationView: AnnotationView, GLKViewDelegate {
             self.EAGLContext = EAGLContext
             GLKView = GLKit.GLKView(frame: bounds, context: EAGLContext)
             CIContext = CoreImage.CIContext(eaglContext: EAGLContext, options: [
-                kCIContextUseSoftwareRenderer: false
+                CIContextOption.useSoftwareRenderer: false
             ])
         } else {
             EAGLContext = nil
